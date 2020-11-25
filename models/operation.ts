@@ -1,17 +1,22 @@
 const fs = require('fs');
 
 export default function add(obj: Object) {
+    console.log(obj);
+    console.log(obj['age']);
     fs.readFile('db.json', 'utf8', function(err, data) {
         if (err) {
             console.log(err);
         } else {
             let table: Array<Object>;
             table = JSON.parse(data).table;
+            console.log(table.length);
             // console.log(JSON.parse(data).table);
-            table.push(obj);
+            table.push({age: +obj['age'], gender: +obj['gender'], movie: +obj['movie']});
+            console.log(table.length);
             let dbjson = {
-                table: table
-            }
+                table: []
+            };
+            dbjson.table = table;
             const fileName = 'db.json';
             fs.writeFile(fileName, dbjson, 'utf8', function(err) {
                 if (err) {

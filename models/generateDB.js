@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.movies = void 0;
+exports.languages = exports.genres = exports.movies = void 0;
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -46,6 +46,8 @@ exports.movies = [724989,
     722603,
     531499,
     514207];
+exports.genres = [28, 12, 16, 35, 80, 99, 18, 10751, 14, 36, 27, 10402, 9648, 10749, 878, 10770, 53, 10752, 37];
+exports.languages = ['en', 'es', 'ko', 'ja', 'vi', 'zh'];
 // const ages = [0,1,2,3,4,5,6];
 // const genders = [0,1];
 var fileName = 'db.json';
@@ -62,6 +64,6 @@ fs.writeFile(fileName, dbjson, 'utf8', function (err) {
         console.log(err);
     }
     else {
-        console.log('success');
+        console.log('success create DB');
     }
 });

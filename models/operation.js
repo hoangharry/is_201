@@ -3,6 +3,8 @@ exports.__esModule = true;
 exports.classifier = void 0;
 var fs = require('fs');
 function add(obj) {
+    console.log(obj);
+    console.log(obj['age']);
     fs.readFile('db.json', 'utf8', function (err, data) {
         if (err) {
             console.log(err);
@@ -10,11 +12,14 @@ function add(obj) {
         else {
             var table = void 0;
             table = JSON.parse(data).table;
+            console.log(table.length);
             // console.log(JSON.parse(data).table);
-            table.push(obj);
+            table.push({ age: +obj['age'], gender: +obj['gender'], movie: +obj['movie'] });
+            console.log(table.length);
             var dbjson = {
-                table: table
+                table: []
             };
+            dbjson.table = table;
             var fileName = 'db.json';
             fs.writeFile(fileName, dbjson, 'utf8', function (err) {
                 if (err) {
