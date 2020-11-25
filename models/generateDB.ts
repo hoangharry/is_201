@@ -45,9 +45,7 @@ export const movies = [724989,
     514207 ];
 export const genres = [28, 12, 16, 35, 80, 99, 18, 10751,14,36,27,10402,9648,10749,878,10770,53,10752,37];
 export const languages = ['en', 'es', 'ko', 'ja', 'vi', 'zh'];
- // const ages = [0,1,2,3,4,5,6];
-// const genders = [0,1];
-const fileName = 'db.json';
+
 var obj = {
     table : []
 }
@@ -56,7 +54,7 @@ for (let i = 0; i < 300; i++) {
 }
 const dbjson = JSON.stringify(obj);
 const fs = require('fs');
-fs.writeFile(fileName, dbjson, 'utf8', function(err) {
+fs.writeFile('./models/db.json', dbjson, 'utf8', function(err) {
     if (err) {
         console.log(err);
     } else {
