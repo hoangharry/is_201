@@ -1,6 +1,6 @@
 import {Router} from 'express'
 import {recommend} from './../controllers/controller'
-const router: Router = Router();
+export const router: Router = Router();
 
 router.post("/recommend", recommend)
 // router.get("/todos", getTodos)

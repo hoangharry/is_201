@@ -1,9 +1,12 @@
+"use strict";
+exports.__esModule = true;
+exports.movies = void 0;
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-var movies = [724989,
+exports.movies = [724989,
     400160,
     531219,
     524047,
@@ -50,7 +53,7 @@ var obj = {
     table: []
 };
 for (var i = 0; i < 300; i++) {
-    obj.table.push({ age: getRandomInt(0, 6), gender: getRandomInt(0, 2), movie: movies[getRandomInt(0, 39)] });
+    obj.table.push({ age: getRandomInt(0, 6), gender: getRandomInt(0, 2), movie: exports.movies[getRandomInt(0, 39)] });
 }
 var dbjson = JSON.stringify(obj);
 var fs = require('fs');
