@@ -1,3 +1,4 @@
+import { laplace_K } from './../constants';
 /*--------------------------------------------------------------------------
 
 bayes-ts - an implementation of a naive bayes classifier in typescript.
@@ -25,7 +26,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 ---------------------------------------------------------------------------*/
-
 interface IMap<V> {
   [key: string]: V
 }
@@ -84,11 +84,15 @@ export default class NaiveBayes implements Classifier {
     }
     else if(obj === undefined || Object.keys(obj).length === 0) {
       let sum = Object.keys   (this.state.features[feature])
-                      .map    (attribute => this.state.features[feature][attribute])
+                      .map    (attribute => {
+                        
+                        return this.state.features[feature][attribute]})
                       .reduce ((acc, count) => acc + count, 0)
       return Object.keys(this.state.features[feature])
                    .reduce((acc, attribute) => {
                      acc[attribute] = this.state.features[feature][attribute] / sum
+                    //  console.log("============================    acc");
+                    //  console.log(acc)
                      return acc
                    }, {})
     } 
@@ -99,16 +103,26 @@ export default class NaiveBayes implements Classifier {
            && this.state.correlations[feature][attribute][inner_feature] !== undefined
            && this.state.correlations[feature][attribute][inner_feature][obj[inner_feature]] !== undefined){
                return sum + this.state.correlations[feature][attribute][inner_feature][obj[inner_feature]]
-             } else return sum
+             } else 
+             {
+               return sum
+             }
         }, 0); 
         return sums
       }, {})
       let result = Object.keys(this.state.correlations[feature]).reduce((result, attribute) => {
         let probabilities = Object.keys(obj).reduce((probabilities, inner_feature) => {
           if( obj[inner_feature] !== undefined 
-           && this.state.correlations[feature][attribute][inner_feature] !== undefined
-           && this.state.correlations[feature][attribute][inner_feature][obj[inner_feature]] !== undefined) {
-               probabilities[inner_feature] = this.state.correlations[feature][attribute][inner_feature][obj[inner_feature]] / sums[inner_feature]
+           && this.state.correlations[feature][attribute][inner_feature] !== undefined){
+               probabilities[inner_feature] =
+                 (this.state.correlations[feature][attribute][inner_feature][
+                   obj[inner_feature]
+                 ] +
+                 laplace_K )/ (sums[inner_feature] +
+                 laplace_K *
+                   Object.keys(
+                     this.state.correlations[feature][attribute][inner_feature]
+                   ).length);
              } else probabilities[inner_feature] = 0
           return probabilities
         }, {})
