@@ -42,3 +42,5 @@ export const movies = [
 ];
 export const genres = [28, 12, 16, 35, 80, 99, 18, 10751,14,36,27,10402,9648,10749,878,10770,53,10752,37];
 export const languages = ['en', 'es', 'ko', 'ja', 'vi', 'zh'];
+
+export const laplace_K = 1;
