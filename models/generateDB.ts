@@ -45,12 +45,15 @@ export const movies = [724989,
     514207 ];
 export const genres = [28, 12, 16, 35, 80, 99, 18, 10751,14,36,27,10402,9648,10749,878,10770,53,10752,37];
 export const languages = ['en', 'es', 'ko', 'ja', 'vi', 'zh'];
-
+import NaiveBayes from './bayes'
+export var classifier = new NaiveBayes();
 var obj = {
     table : []
 }
 for (let i = 0; i < 300; i++) {
-    obj.table.push({age: getRandomInt(0,6), gender: getRandomInt(0,2), movie: movies[getRandomInt(0, 39)]});
+    const newObj = {age: getRandomInt(0,6), gender: getRandomInt(0,2), movie: movies[getRandomInt(0, 39)]}
+    obj.table.push(newObj);
+    classifier.train(newObj);
 }
 const dbjson = JSON.stringify(obj);
 const fs = require('fs');
@@ -61,3 +64,18 @@ fs.writeFile('./models/db.json', dbjson, 'utf8', function(err) {
         console.log('success create DB');
     }
 });
+// import NaiveBayes from './bayes'
+// export var classifier = new NaiveBayes();
+// var db: Array<any> = [];
+// fs.readFile('db.json', 'utf8', function(err, data) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log('im here');
+//         db = JSON.parse(data).table;
+//         // console.log(JSON.parse(data).table);
+//         db.forEach(element => {
+//             classifier.train(element);
+//         });
+//     }
+// });

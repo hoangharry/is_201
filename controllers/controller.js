@@ -48,16 +48,18 @@ exports.recommend = function (req, res) { return __awaiter(void 0, void 0, void 
                 return [4 /*yield*/, operation_1["default"](body)];
             case 1:
                 _a.sent();
-                operation_1.classifier.train(body);
-                p = operation_1.classifier.classify("movie", {
+                generateDB_1.classifier.train(body);
+                p = generateDB_1.classifier.classify("movie", {
                     age: +body.age,
                     gender: +body.gender
                 });
+                console.log(p);
                 tmp = [];
                 generateDB_1.movies.forEach(function (ele) {
                     tmp.push({ id: ele, prob: p[ele.toString()] });
                 });
-                tmp.sort(function (a, b) { return (a.prob > b.prob) ? 1 : ((b.prob > a.prob) ? -1 : 0); });
+                tmp.sort(function (a, b) { return (a.prob < b.prob) ? 1 : ((b.prob < a.prob) ? -1 : 0); });
+                console.log(tmp);
                 res.status(200).json({
                     movies: [tmp[0]['id'], tmp[1]['id']]
                 });
